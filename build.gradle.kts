@@ -6,7 +6,7 @@ plugins {
     id("org.graalvm.buildtools.native") version "0.9.19"
 }
 
-version = "0.11.6"
+version = "0.11.6-inoi"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

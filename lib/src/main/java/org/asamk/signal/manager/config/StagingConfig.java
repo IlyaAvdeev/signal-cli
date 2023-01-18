@@ -26,9 +26,9 @@ import okhttp3.Interceptor;
 class StagingConfig {
 
     private final static byte[] UNIDENTIFIED_SENDER_TRUST_ROOT = Base64.getDecoder()
-            .decode("BbqY1DzohE4NUZoVF+L18oUPrK3kILllLEJh2UnPSsEx");
-    private final static String CDS_MRENCLAVE = "74778bb0f93ae1f78c26e67152bab0bbeb693cd56d1bb9b4e9244157acc58081";
-    private final static String CDSI_MRENCLAVE = "ef4787a56a154ac6d009138cac17155acd23cfe4329281252365dd7c252e7fbf";
+            .decode("Bdm8mxmX6PwvFloZpSVNwEjPTxk7mGb3QBZefzZnFr82");
+    private final static String CDS_MRENCLAVE = "5282dd8af2448dbf3881d1631d92c63b8fc9a5f48f6e234e16e3a561619aaca9";
+    private final static String CDSI_MRENCLAVE = "5282dd8af2448dbf3881d1631d92c63b8fc9a5f48f6e234e16e3a561619aaca9";
 
     private final static String KEY_BACKUP_ENCLAVE_NAME = "39963b736823d5780be96ab174869a9499d56d66497aa8f9b2244f777ebc366b";
     private final static byte[] KEY_BACKUP_SERVICE_ID = Hex.decode(
@@ -39,20 +39,23 @@ class StagingConfig {
             "4200003414528c151e2dccafbc87aa6d3d66a5eb8f8c05979a6e97cb33cd493a");
     private final static String FALLBACK_KEY_BACKUP_MRENCLAVE = "ee19f1965b1eefa3dc4204eb70c04f397755f771b8c1909d080c04dad2a6a9ba";
 
-    private final static String URL = "https://chat.staging.signal.org";
-    private final static String CDN_URL = "https://cdn-staging.signal.org";
-    private final static String CDN2_URL = "https://cdn2-staging.signal.org";
-    private final static String SIGNAL_CONTACT_DISCOVERY_URL = "https://api-staging.directory.signal.org";
-    private final static String SIGNAL_KEY_BACKUP_URL = "https://api-staging.backup.signal.org";
-    private final static String STORAGE_URL = "https://storage-staging.signal.org";
-    private final static String SIGNAL_CDSI_URL = "https://cdsi.staging.signal.org";
+    private final static String URL = System.getProperty("stagingServerURL","https://staging.signal-v2.devinoi.com");
+    private final static String CDN_URL = System.getProperty("stagingCdnURL","https://staging.cdn.devinoi.com");
+    private final static String CDN2_URL = System.getProperty("stagingCdn2URL","https://staging.cdn2.devinoi.com");
+    private final static String SIGNAL_CONTACT_DISCOVERY_URL = System.getProperty("stagingContactDiscoveryURL",
+            "https://staging.cds.devinoi.com");
+    private final static String SIGNAL_KEY_BACKUP_URL = System.getProperty("stagingKeyBackupURL",
+            "https://staging.svr.devinoi.com");
+    private final static String STORAGE_URL = System.getProperty("stagingStorageURL","https://staging.storage.devinoi.com");
+    private final static String SIGNAL_CDSI_URL = System.getProperty("stagingCdsiURL","https://staging.cds.devinoi.com");
+
     private final static TrustStore TRUST_STORE = new WhisperTrustStore();
 
     private final static Optional<Dns> dns = Optional.empty();
     private final static Optional<SignalProxy> proxy = Optional.empty();
 
     private final static byte[] zkGroupServerPublicParams = Base64.getDecoder()
-            .decode("ABSY21VckQcbSXVNCGRYJcfWHiAMZmpTtTELcDmxgdFbtp/bWsSxZdMKzfCp8rvIs8ocCU3B37fT3r4Mi5qAemeGeR2X+/YmOGR5ofui7tD5mDQfstAI9i+4WpMtIe8KC3wU5w3Inq3uNWVmoGtpKndsNfwJrCg0Hd9zmObhypUnSkfYn2ooMOOnBpfdanRtrvetZUayDMSC5iSRcXKpdlukrpzzsCIvEwjwQlJYVPOQPj4V0F4UXXBdHSLK05uoPBCQG8G9rYIGedYsClJXnbrgGYG3eMTG5hnx4X4ntARBgELuMWWUEEfSK0mjXg+/2lPmWcTZWR9nkqgQQP0tbzuiPm74H2wMO4u1Wafe+UwyIlIT9L7KLS19Aw8r4sPrXZSSsOZ6s7M1+rTJN0bI5CKY2PX29y5Ok3jSWufIKcgKOnWoP67d5b2du2ZVJjpjfibNIHbT/cegy/sBLoFwtHogVYUewANUAXIaMPyCLRArsKhfJ5wBtTminG/PAvuBdJ70Z/bXVPf8TVsR292zQ65xwvWTejROW6AZX6aqucUj");
+            .decode("AH7eCL2GYrFC17xX3eEQLCst0piBYyr690Xjql2KfFB+qhGMzPLZxJPPxPiLvnqlqDbJ6tRW3nIlkilSpsQV7hwQ6S4LZXoPXhJl3O6iQW1BKIk/K+1DfSpB8YF8Xo1dQcBzY2JoPcvIxxSu2Ey97sCt0gOlrWjmtfqFZPX8GStO6Gcxsvtr2p3xYZEwn//gGlrSD1Q7Rr8i067QIP+/x368yKgXdLhykf6zT54+jjrpDW5ZNSD0znJmGLTXShrfP2ZyVqZcbxpc4QgjWM0pHM7NCwe/Xnax/ksJ3NQ5wNYM0o7gfhJJw/IjKEo3vNec4obmnQ9ZaBBpwQ05ud+LaBO61kfJKRG8m4Ko/edKgezqYyFULMK+BqXbwj5kQC6pZ5rWPzr3Gam7b88/u6U9n/V9WpF1y5+YyzTYwQ/+xfkOIHFtEBUhUuTdAvTAAVE+nX7nwRswbqE72KQ/wYjGZCdO4uL0rMOvGc7jdW0GHKUgBqi7zAQdPpBaq2ybTCedVJjR9S+lNmYzSVHsdoWJKKNiIfx9IpOWbzgdZ5k4jzMG");
 
     static SignalServiceConfiguration createDefaultServiceConfiguration(
             final List<Interceptor> interceptors

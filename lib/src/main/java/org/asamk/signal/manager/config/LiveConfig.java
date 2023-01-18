@@ -26,9 +26,9 @@ import okhttp3.Interceptor;
 class LiveConfig {
 
     private final static byte[] UNIDENTIFIED_SENDER_TRUST_ROOT = Base64.getDecoder()
-            .decode("BXu6QIKVz5MA8gstzfOgRQGqyLqOwNKHL6INkv3IHWMF");
-    private final static String CDS_MRENCLAVE = "74778bb0f93ae1f78c26e67152bab0bbeb693cd56d1bb9b4e9244157acc58081";
-    private final static String CDSI_MRENCLAVE = "ef4787a56a154ac6d009138cac17155acd23cfe4329281252365dd7c252e7fbf";
+            .decode("Bdm8mxmX6PwvFloZpSVNwEjPTxk7mGb3QBZefzZnFr82");
+    private final static String CDS_MRENCLAVE = "5282dd8af2448dbf3881d1631d92c63b8fc9a5f48f6e234e16e3a561619aaca9";
+    private final static String CDSI_MRENCLAVE = "5282dd8af2448dbf3881d1631d92c63b8fc9a5f48f6e234e16e3a561619aaca9";
 
     private final static String KEY_BACKUP_ENCLAVE_NAME = "e18376436159cda3ad7a45d9320e382e4a497f26b0dca34d8eab0bd0139483b5";
     private final static byte[] KEY_BACKUP_SERVICE_ID = Hex.decode(
@@ -39,20 +39,22 @@ class LiveConfig {
             "187d2739d22be65e74b65f0055e74d31310e4267e5fac2b1246cc8beba81af39");
     private final static String FALLBACK_KEY_BACKUP_MRENCLAVE = "ee19f1965b1eefa3dc4204eb70c04f397755f771b8c1909d080c04dad2a6a9ba";
 
-    private final static String URL = "https://chat.signal.org";
-    private final static String CDN_URL = "https://cdn.signal.org";
-    private final static String CDN2_URL = "https://cdn2.signal.org";
-    private final static String SIGNAL_CONTACT_DISCOVERY_URL = "https://api.directory.signal.org";
-    private final static String SIGNAL_KEY_BACKUP_URL = "https://api.backup.signal.org";
-    private final static String STORAGE_URL = "https://storage.signal.org";
-    private final static String SIGNAL_CDSI_URL = "https://cdsi.signal.org";
+    private final static String URL = System.getProperty("serverURL","https://signal-v2.devinoi.com");
+    private final static String CDN_URL = System.getProperty("cdnURL","https://cdn.devinoi.com");
+    private final static String CDN2_URL = System.getProperty("cdn2URL","https://cdn2.devinoi.com");
+    private final static String SIGNAL_CONTACT_DISCOVERY_URL = System.getProperty("contactDiscoveryURL",
+            "https://cds.devinoi.com");
+    private final static String SIGNAL_KEY_BACKUP_URL = System.getProperty("keyBackupURL",
+            "https://svr.devinoi.com");
+    private final static String STORAGE_URL = System.getProperty("storageURL","https://storage.devinoi.com");
+    private final static String SIGNAL_CDSI_URL = System.getProperty("cdsiURL","https://cds.devinoi.com");
     private final static TrustStore TRUST_STORE = new WhisperTrustStore();
 
     private final static Optional<Dns> dns = Optional.empty();
     private final static Optional<SignalProxy> proxy = Optional.empty();
 
     private final static byte[] zkGroupServerPublicParams = Base64.getDecoder()
-            .decode("AMhf5ywVwITZMsff/eCyudZx9JDmkkkbV6PInzG4p8x3VqVJSFiMvnvlEKWuRob/1eaIetR31IYeAbm0NdOuHH8Qi+Rexi1wLlpzIo1gstHWBfZzy1+qHRV5A4TqPp15YzBPm0WSggW6PbSn+F4lf57VCnHF7p8SvzAA2ZZJPYJURt8X7bbg+H3i+PEjH9DXItNEqs2sNcug37xZQDLm7X36nOoGPs54XsEGzPdEV+itQNGUFEjY6X9Uv+Acuks7NpyGvCoKxGwgKgE5XyJ+nNKlyHHOLb6N1NuHyBrZrgtY/JYJHRooo5CEqYKBqdFnmbTVGEkCvJKxLnjwKWf+fEPoWeQFj5ObDjcKMZf2Jm2Ae69x+ikU5gBXsRmoF94GXTLfN0/vLt98KDPnxwAQL9j5V1jGOY8jQl6MLxEs56cwXN0dqCnImzVH3TZT1cJ8SW1BRX6qIVxEzjsSGx3yxF3suAilPMqGRp4ffyopjMD1JXiKR2RwLKzizUe5e8XyGOy9fplzhw3jVzTRyUZTRSZKkMLWcQ/gv0E4aONNqs4P");
+            .decode("AH7eCL2GYrFC17xX3eEQLCst0piBYyr690Xjql2KfFB+qhGMzPLZxJPPxPiLvnqlqDbJ6tRW3nIlkilSpsQV7hwQ6S4LZXoPXhJl3O6iQW1BKIk/K+1DfSpB8YF8Xo1dQcBzY2JoPcvIxxSu2Ey97sCt0gOlrWjmtfqFZPX8GStO6Gcxsvtr2p3xYZEwn//gGlrSD1Q7Rr8i067QIP+/x368yKgXdLhykf6zT54+jjrpDW5ZNSD0znJmGLTXShrfP2ZyVqZcbxpc4QgjWM0pHM7NCwe/Xnax/ksJ3NQ5wNYM0o7gfhJJw/IjKEo3vNec4obmnQ9ZaBBpwQ05ud+LaBO61kfJKRG8m4Ko/edKgezqYyFULMK+BqXbwj5kQC6pZ5rWPzr3Gam7b88/u6U9n/V9WpF1y5+YyzTYwQ/+xfkOIHFtEBUhUuTdAvTAAVE+nX7nwRswbqE72KQ/wYjGZCdO4uL0rMOvGc7jdW0GHKUgBqi7zAQdPpBaq2ybTCedVJjR9S+lNmYzSVHsdoWJKKNiIfx9IpOWbzgdZ5k4jzMG");
 
     static SignalServiceConfiguration createDefaultServiceConfiguration(
             final List<Interceptor> interceptors
