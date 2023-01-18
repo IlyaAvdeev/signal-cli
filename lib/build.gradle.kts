@@ -11,10 +11,11 @@ java {
 repositories {
     mavenLocal()
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
-    implementation("com.github.turasa", "signal-service-java", "2.15.3_unofficial_62")
+    implementation("com.github.turasa", "signal-service-java", "2.15.3_unofficial_62_inoi")
     implementation("com.fasterxml.jackson.core", "jackson-databind", "2.13.4.2")
     implementation("com.google.protobuf", "protobuf-javalite", "3.21.6")
     implementation("org.bouncycastle", "bcprov-jdk15on", "1.70")
