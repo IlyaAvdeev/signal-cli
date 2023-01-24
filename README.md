@@ -1,5 +1,32 @@
 # signal-cli
 
+This is the second one of 3 repos ([libsignal-service-java](https://code.dev-ittest.ru/ittest/inoi/inoi-libsignal-service-java/-/tree/v2.15.3_unofficial_62-protocol-update),
+[signal-cli](https://code.dev-ittest.ru/ittest/inoi/inoi-signal-cli/-/tree/v0.11.4-protocol-update),
+[signal-cli-rest-api](https://code.dev-ittest.ru/ittest/inoi/inoi-signal-cli-rest-api/-/tree/v0.64-new-protocol))
+for building ChatBot functionality (its transport in general). This library/repo must be build after 
+building _libsignal-service-java_ and prior to building _signal-cli-rest-api_.
+
+### How to build
+
+Prerequisites:
+* Java 17 (tested against OpenJDK flavour)
+* GraalVM (tested against 22.3 version)
+* This build process must be run on the same machine as build process of _libsignal-service-java_ (since it uses Maven local repo for sharing artefacts among builds) 
+
+Building:
+* Switch onto _v0.11.4-protocol-update_ branch.
+* Run sequentially next Gradle tasks: clean -> build -> nativeCompile
+* In the end you get the next artefacts(paths are provided from root repo directory)
+```
+/build/distributions/signal-cli-0.11.4_inoi.tar
+/build/native/nativeCompile/signal-cli
+```
+* Store the artifacts from previous step to use them on the next stage(during the build of docker image)
+
+Below you will find documentation from the original repo
+
+---
+
 signal-cli is a commandline interface
 for [libsignal-service-java](https://github.com/WhisperSystems/libsignal-service-java). It supports registering,
 verifying, sending and receiving messages. To be able to link to an existing Signal-Android/signal-cli instance,
