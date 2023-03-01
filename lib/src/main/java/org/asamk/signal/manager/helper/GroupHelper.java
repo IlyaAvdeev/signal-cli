@@ -99,7 +99,7 @@ public class GroupHelper {
             return Optional.empty();
         }
 
-        return Optional.of(AttachmentUtils.createAttachmentStream(streamDetails, Optional.empty()));
+        return Optional.of(AttachmentUtils.createAttachmentStream(streamDetails, Optional.empty(), dependencies));
     }
 
     public GroupInfoV2 getOrMigrateGroup(

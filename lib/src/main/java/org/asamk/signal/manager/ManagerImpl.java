@@ -597,7 +597,7 @@ class ManagerImpl implements Manager {
                     stickerPack.packKey(),
                     stickerId,
                     manifestSticker.emoji(),
-                    AttachmentUtils.createAttachmentStream(streamDetails, Optional.empty())));
+                    AttachmentUtils.createAttachmentStream(streamDetails, Optional.empty(), dependencies)));
         }
         if (message.previews().size() > 0) {
             final var previews = new ArrayList<SignalServicePreview>(message.previews().size());

@@ -1,5 +1,6 @@
 package org.asamk.signal.manager.util;
 
+import org.asamk.signal.manager.SignalDependencies;
 import org.asamk.signal.manager.api.AttachmentInvalidException;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentStream;
 import org.whispersystems.signalservice.api.util.StreamDetails;
@@ -12,36 +13,44 @@ import java.util.Optional;
 
 public class AttachmentUtils {
 
-    public static List<SignalServiceAttachmentStream> createAttachmentStreams(List<String> attachments) throws AttachmentInvalidException {
+    public static List<SignalServiceAttachmentStream> createAttachmentStreams(List<String> attachments, SignalDependencies dependencies) throws AttachmentInvalidException {
         if (attachments == null) {
             return null;
         }
         final var signalServiceAttachments = new ArrayList<SignalServiceAttachmentStream>(attachments.size());
         for (var attachment : attachments) {
-            signalServiceAttachments.add(createAttachmentStream(attachment));
+            signalServiceAttachments.add(createAttachmentStream(attachment, dependencies));
         }
         return signalServiceAttachments;
     }
 
-    public static SignalServiceAttachmentStream createAttachmentStream(String attachment) throws AttachmentInvalidException {
+    public static SignalServiceAttachmentStream createAttachmentStream(String attachment, SignalDependencies dependencies) throws AttachmentInvalidException {
         try {
             final var streamDetails = Utils.createStreamDetails(attachment);
 
-            return createAttachmentStream(streamDetails.first(), streamDetails.second());
+            return createAttachmentStream(streamDetails.first(), streamDetails.second(), dependencies);
         } catch (IOException e) {
             throw new AttachmentInvalidException(attachment, e);
         }
     }
 
     public static SignalServiceAttachmentStream createAttachmentStream(
-            StreamDetails streamDetails, Optional<String> name
+            StreamDetails streamDetails, Optional<String> name, SignalDependencies dependencies
     ) {
         // TODO maybe add a parameter to set the voiceNote, borderless, preview, width, height and caption option
         final var uploadTimestamp = System.currentTimeMillis();
         Optional<byte[]> preview = Optional.empty();
         Optional<String> caption = Optional.empty();
         Optional<String> blurHash = Optional.empty();
-        final Optional<ResumableUploadSpec> resumableUploadSpec = Optional.empty();
+        ResumableUploadSpec spec = null;
+        try {
+            spec = dependencies.getMessageSender().getResumableUploadSpec();
+        } catch (IOException e) {
+            //do nothing
+            System.out.println("Error occurred getting ResumableUploadSpec (very likely Google certificates expired). Details: " + e.getMessage());
+        }
+
+        final Optional<ResumableUploadSpec> resumableUploadSpec = Optional.ofNullable(spec);
         return new SignalServiceAttachmentStream(streamDetails.getStream(),
                 streamDetails.getContentType(),
                 streamDetails.getLength(),

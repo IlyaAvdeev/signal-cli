@@ -348,7 +348,7 @@ public class SyncHelper {
             return Optional.empty();
         }
 
-        return Optional.of(AttachmentUtils.createAttachmentStream(streamDetails, Optional.empty()));
+        return Optional.of(AttachmentUtils.createAttachmentStream(streamDetails, Optional.empty(), context.getDependencies()));
     }
 
     private void downloadContactAvatar(SignalServiceAttachment avatar, RecipientAddress address) {
